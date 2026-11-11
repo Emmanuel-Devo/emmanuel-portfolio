@@ -1,0 +1,286 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #F8FAFC;
+    color: #0F172A;
+    overflow-x: hidden;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Modal open body lock on screen */
+body.cv-modal-open {
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   DEDICATED PRINT / SAVE AS PDF STYLESHEET
+   Strictly optimized for Google Chrome, Microsoft Edge, Safari, and Firefox.
+   Formats Emmanuel Chukwuere's CV cleanly for A4 printing with:
+   - Pure white background (#ffffff)
+   - Crisp black readable typography
+   - A4 page margins (12mm 14mm 12mm 14mm)
+   - Complete suppression of website navigation, hero, projects, footer, and buttons
+   - Page-break protection on cards and headers (no cut-off sections)
+   - High-contrast, clickable and readable GitHub links
+   ========================================================================== */
+
+@page {
+  size: A4 portrait;
+  margin: 12mm 14mm 12mm 14mm;
+}
+
+@media print {
+  /* 1. Global resets: Disable animations, shadows, and force white background */
+  *,
+  *::before,
+  *::after {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* 2. Critical Chromium/Edge layout engine reset:
+        All ancestor containers MUST be display: block (not display: flex)
+        and have visible overflow with auto height to allow multi-page pagination. */
+  html,
+  body,
+  body.cv-modal-open,
+  #root,
+  #root > div,
+  .min-h-screen {
+    display: block !important;
+    position: static !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    color: #0f172a !important;
+    overflow: visible !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 9.5pt !important;
+    line-height: 1.45 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* 3. Hide all non-CV website chrome and unrelated portfolio sections */
+  header,
+  nav,
+  main,
+  footer,
+  .no-print,
+  button,
+  input,
+  textarea,
+  form,
+  #contact,
+  #projects,
+  #skills,
+  #about,
+  #experience,
+  #education,
+  #cv-modal-toolbar,
+  .cv-modal-toolbar,
+  [role="dialog"]:not(.printable-modal) {
+    display: none !important;
+  }
+
+  /* 4. Reset CV Modal Backdrop into a plain document wrapper */
+  #cv-modal-dialog,
+  .cv-modal-backdrop {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: auto !important;
+    inset: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    overflow: visible !important;
+    z-index: auto !important;
+    animation: none !important;
+  }
+
+  /* 5. Reset Modal Container into a Document Page */
+  #cv-modal-container,
+  .cv-modal-container {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    color: #0f172a !important;
+  }
+
+  /* 6. Printable CV Document Content */
+  .cv-document-body {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+
+  /* 7. Document Header Block */
+  .cv-print-header {
+    border-bottom: 2pt solid #2563eb !important;
+    padding-bottom: 10pt !important;
+    margin-bottom: 12pt !important;
+    display: block !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .cv-print-name {
+    color: #0f172a !important;
+    font-size: 21pt !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.02em !important;
+    line-height: 1.15 !important;
+    margin: 0 0 3pt 0 !important;
+  }
+
+  .cv-print-role {
+    color: #1d4ed8 !important;
+    font-size: 11.5pt !important;
+    font-weight: 700 !important;
+    margin: 0 0 5pt 0 !important;
+  }
+
+  .cv-print-contact-row {
+    color: #475569 !important;
+    font-size: 8.5pt !important;
+    line-height: 1.4 !important;
+  }
+
+  .cv-print-subcontact {
+    color: #475569 !important;
+    font-size: 8.5pt !important;
+    margin-top: 3pt !important;
+  }
+
+  .cv-print-status {
+    color: #047857 !important;
+    font-weight: 700 !important;
+  }
+
+  /* 8. Section Headings */
+  .cv-print-section-title {
+    color: #1e3a8a !important;
+    font-size: 10.5pt !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    border-bottom: 1pt solid #cbd5e1 !important;
+    padding-bottom: 2.5pt !important;
+    margin-top: 12pt !important;
+    margin-bottom: 7pt !important;
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  /* 9. Cards & Subsections */
+  .cv-print-card {
+    background-color: #f8fafc !important;
+    border: 1pt solid #e2e8f0 !important;
+    border-radius: 4pt !important;
+    padding: 7pt 9pt !important;
+    margin-bottom: 7pt !important;
+    color: #0f172a !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .cv-print-card-title {
+    color: #0f172a !important;
+    font-weight: 700 !important;
+    font-size: 9.5pt !important;
+  }
+
+  .cv-print-card-sub {
+    color: #475569 !important;
+    font-size: 8.5pt !important;
+    font-weight: 500 !important;
+  }
+
+  .cv-print-card-desc {
+    color: #334155 !important;
+    font-size: 8.5pt !important;
+    line-height: 1.45 !important;
+    margin-top: 2.5pt !important;
+  }
+
+  .cv-print-repo {
+    color: #1d4ed8 !important;
+    font-size: 8pt !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    margin-top: 2.5pt !important;
+    word-break: break-all !important;
+    text-decoration: underline !important;
+  }
+
+  .cv-print-bullets {
+    margin-top: 3pt !important;
+    padding-left: 13pt !important;
+    list-style-type: disc !important;
+  }
+
+  .cv-print-bullet {
+    color: #334155 !important;
+    font-size: 8.5pt !important;
+    line-height: 1.4 !important;
+    margin-bottom: 2pt !important;
+  }
+
+  /* 10. Avoid Break Inside on all content blocks */
+  .cv-avoid-break {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* 11. Links formatted cleanly for print/PDF */
+  a[href^="http"] {
+    color: #1d4ed8 !important;
+  }
+}
